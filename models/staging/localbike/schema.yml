@@ -1,6 +1,6 @@
 models:
-  - name: stg_localbike__brands
-    description: "This model contains information about bike brands sold by Local Bike"
+  - name: stg_localbike__product_brands
+    description: This model contains information about bike brands sold by Local Bike
     columns:
       - name: brand_id
         description: Primary key of the table
@@ -8,8 +8,8 @@ models:
           - unique
           - not_null
 
-  - name: stg_localbike__categories
-    description: "This model contains information about categories of bikes sold by Local Bike"
+  - name: stg_localbike__product_categories
+    description: This model contains information about categories of bikes sold by Local Bike
     columns:
       - name: category_id
         description: Primary key of the table
@@ -18,7 +18,7 @@ models:
           - not_null
 
   - name: stg_localbike__customers
-    description: "This model contains information about Local Bike customers"
+    description: This model contains information about Local Bike customers
     columns:
       - name: customer_id
         description: Primary key of the table
@@ -27,13 +27,29 @@ models:
           - not_null
 
   - name: stg_localbike__order_items
-    description: "This model contains information about order items"
+    description: This model contains information about order items
     columns:
       - name: order_item_id
         description: Primary key of the table
         tests:
           - unique
           - not_null
+      - name: order_id
+        description: Foreign key linking the order item to the corresponding order
+        tests:
+          - relationships:
+              name: order_id_foreign_key_in_stg_localbike__order_item
+              to: ref('stg_localbike__orders')
+              field: order_id
+      - name: product_id
+        description: Foreign key linking the order item to the corresponding product
+        tests:
+          - relationships:
+              name: product_id_foreign_key_in_stg_localbike_order_item
+              to: ref('stg_localbike__products')
+              field: product_id
+      - name: line_price_after_discount
+        description: Total amount for the order line calculated as list_price * quantity, minus the discount
 
   - name: stg_localbike__orders
     description: "This model contains information about order details"
@@ -43,24 +59,59 @@ models:
         tests:
           - unique
           - not_null
+      - name: customer_id
+        description: Foreign key linking the order to the corresponding customer
+        tests:
+          - relationships:
+              name: customer_id_foreign_key_in_stg_localbike_orders
+              field: customer_id
+              to: ref('stg_localbike__customers')
+      - name: store_id
+        description: Foreign key linking the order to the corresponding store
+        tests:
+          - relationships:
+              name: store_id_foreign_key_in_stg_localbike_orders
+              field: store_id
+              to: ref('stg_localbike__stores')
+      - name: staff_id
+        description: Foreign key linking the order to the corresponding staff member
+        tests:
+          - relationships:
+              name: staff_id_foreign_key_in_stg_localbike_orders
+              field: staff_id
+              to: ref('stg_localbike__store_staffs')
 
   - name: stg_localbike__products
-    description: "This model contains information about products sold at Local Bike"
+    description: This model contains information about products sold at Local Bike
     columns:
       - name: product_id
         description: Primary key of the table
         tests:
           - unique
           - not_null
+      - name: brand_id
+        description: Foreign key linking the product to the corresponding product brand
+        tests:
+          - relationships:
+              name: brand_id_foreign_key_in_stg_localbike_products
+              field: brand_id
+              to: ref('stg_localbike__product_brands')   
 
-  - name: stg_localbike__staffs
-    description: "This model contains information about staff members working at Local Bike"
+  - name: stg_localbike__store_staffs
+    description: "This model contains information about staff members working at Local Bike stores"
     columns:
       - name: staff_id
         description: Primary key of the table
         tests:
           - unique
           - not_null
+      - name: store_id
+        description: Foreign key linking the staff member to the corresponding store
+        tests:
+          - relationships:
+              name: store_id_foreign_key_in_stg_localbike__store_staffs
+              field: store_id
+              to: ref('stg_localbike__stores')
 
   - name: stg_localbike__stocks
     description: "This model contains information about current stocks of products"
@@ -70,6 +121,20 @@ models:
         tests:
           - unique
           - not_null
+      - name: store_id
+        description: Foreign key linking the stock_id to the corresponding store
+        tests:
+          - relationships:
+              name: store_id_foreign_key_in_stg_localbike__stocks
+              field: store_id
+              to: ref('stg_localbike__stores')
+      - name: product_id
+        description: Foreign key linking the stock_id to the corresponding product
+        tests:
+          - relationships:
+              name: product_id_foreign_key_in_stg_localbike__stocks
+              field: product_id
+              to: ref('stg_localbike__products')
 
   - name: stg_localbike__stores
     description: "This model contains information about Local Bike stores"
