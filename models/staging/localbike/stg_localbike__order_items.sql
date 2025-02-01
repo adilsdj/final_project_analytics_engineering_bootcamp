@@ -5,6 +5,7 @@ SELECT
     product_id,
     quantity,
     list_price,
-    discount AS discount_rate
+    discount AS discount_rate,
+    (list_price * quantity) * (1 - discount) AS line_price_after_discount
 FROM 
     {{source("localbike","order_items")}}
