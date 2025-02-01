@@ -1,0 +1,81 @@
+models:
+  - name: stg_localbike__brands
+    description: "This model contains information about bike brands sold by Local Bike"
+    columns:
+      - name: brand_id
+        description: Primary key of the table
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_localbike__categories
+    description: "This model contains information about categories of bikes sold by Local Bike"
+    columns:
+      - name: category_id
+        description: Primary key of the table
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_localbike__customers
+    description: "This model contains information about Local Bike customers"
+    columns:
+      - name: customer_id
+        description: Primary key of the table
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_localbike__order_items
+    description: "This model contains information about order items"
+    columns:
+      - name: order_item_id
+        description: Primary key of the table
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_localbike__orders
+    description: "This model contains information about order details"
+    columns:
+      - name: order_id
+        description: Primary key of the table
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_localbike__products
+    description: "This model contains information about products sold at Local Bike"
+    columns:
+      - name: product_id
+        description: Primary key of the table
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_localbike__staffs
+    description: "This model contains information about staff members working at Local Bike"
+    columns:
+      - name: staff_id
+        description: Primary key of the table
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_localbike__stocks
+    description: "This model contains information about current stocks of products"
+    columns:
+      - name: stock_id
+        description: Primary key of the table
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_localbike__stores
+    description: "This model contains information about Local Bike stores"
+    columns:
+      - name: store_id
+        description: Primary key of the table
+        tests:
+          - unique
+          - not_null
