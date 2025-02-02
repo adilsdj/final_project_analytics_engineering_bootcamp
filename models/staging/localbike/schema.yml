@@ -80,6 +80,11 @@ models:
               name: staff_id_foreign_key_in_stg_localbike_orders
               field: staff_id
               to: ref('stg_localbike__store_staffs')
+      - name: order_status
+        tests:
+          - accepted_values:
+              values: [1,2,3,4]
+              quote: false
 
   - name: stg_localbike__products
     description: This model contains information about products sold at Local Bike
@@ -112,6 +117,11 @@ models:
               name: store_id_foreign_key_in_stg_localbike__store_staffs
               field: store_id
               to: ref('stg_localbike__stores')
+      - name: active
+        tests:
+          - accepted_values:
+              values: [0,1]
+              quote: false
 
   - name: stg_localbike__stocks
     description: "This model contains information about current stocks of products"
