@@ -3,4 +3,5 @@ SELECT
 FROM
     ref("stg_localbike__orders")
 WHERE
-    SAFE_CAST(shipped_date AS DATE) < order_date
+    shipped_date IS NOT NULL
+    AND shipped_date < order_date

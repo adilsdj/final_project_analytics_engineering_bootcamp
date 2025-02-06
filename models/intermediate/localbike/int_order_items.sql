@@ -1,0 +1,11 @@
+SELECT
+    order_item_id,
+    order_id,
+    order_line,
+    product_id,
+    quantity,
+    list_price,
+    discount_rate,
+    line_price_after_discount
+FROM 
+    {{ref("stg_localbike__order_items")}}
